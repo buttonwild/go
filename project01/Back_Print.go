@@ -36,7 +36,7 @@ func reversePrint(head *ListNode) []int {
 		//返回数组
 	}
 	return []int{head.Val}
-	//返回最终结果
+	//返回最内侧数据，为数组的第一位
 }
 
 //List is a List
