@@ -33,7 +33,7 @@ func reversePrint(head *ListNode) []int {
 		list = append(list, head.Val)
 		//append函数用于数组添加
 		return list
-		//返回数组
+		//返回最终结果
 	}
 	return []int{head.Val}
 	//返回最内侧数据，为数组的第一位
