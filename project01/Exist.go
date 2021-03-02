@@ -3,19 +3,19 @@ package main
 import "fmt"
 
 func main() {
-	board := [][]byte{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}
-	//board2 := [][]byte{{'a'}, {'a'}}
+	//board := [][]byte{{'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'}}
+	board2 := [][]byte{{'a'}, {'a'}}
 	//board3 := [][]byte{{'a', 'b'}}
 	//board4 := [][]byte{{'a', 'b'}, {'c', 'd'}}
 	//board5 := [][]byte{{'c', 'a', 'a'}, {'a', 'a', 'a'}, {'b', 'c', 'd'}}
 	//board6 := [][]byte{{'a'}}
-	word := "ABCCED"
-	//word2 := "aaa"
+	//word := "ABCCED"
+	word2 := "aaa"
 	//word3 := "ba"
 	//word4 := "cdba"
 	//word5 := "aab"
 	//word6 := "ab"
-	fmt.Println(exist(board, word))
+	fmt.Println(exist(board2, word2))
 }
 func exist(board [][]byte, word string) bool {
 	//异常一[["a"]]"ab"
@@ -32,10 +32,8 @@ func exist(board [][]byte, word string) bool {
 	g := 0
 	for c != len(board[0]) && g != len(board) {
 		n := 0
-		var nboard [200][200]int
 		if board[g][c] == word[n] {
-			if n >= len(word) || dfs(board, nboard, g, c, word, n) {
-				y = 0
+			if n >= len(word) || dfs(board, g, c, word, n) {
 				return true
 			}
 		}
@@ -49,27 +47,24 @@ func exist(board [][]byte, word string) bool {
 	return false
 }
 
-var y int
-
-func dfs(board [][]byte, nboard [200][200]int, g int, c int, word string, n int) bool {
+func dfs(board [][]byte, g int, c int, word string, n int) bool {
 	if n == len(word) {
-		y = 1
 		return true
 	}
 	if g < 0 || c < 0 || g == len(board) || c == len(board[0]) {
 		return false
 	}
-	if board[g][c] == word[n] && nboard[g][c] != 1 {
-		nboard[g][c] = 1
-		if dfs(board, nboard, g-1, c, word, n+1) ||
-			dfs(board, nboard, g+1, c, word, n+1) ||
-			dfs(board, nboard, g, c-1, word, n+1) ||
-			dfs(board, nboard, g, c+1, word, n+1) {
-			y = 1
+	if board[g][c] == word[n] {
+		temp := board[g][c]
+		board[g][c] = ' '
+		if dfs(board, g-1, c, word, n+1) ||
+			dfs(board, g+1, c, word, n+1) ||
+			dfs(board, g, c-1, word, n+1) ||
+			dfs(board, g, c+1, word, n+1) {
+			return true
+		} else {
+			board[g][c] = temp
 		}
-	}
-	if y == 1 {
-		return true
 	}
 	return false
 }
