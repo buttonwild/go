@@ -56,6 +56,7 @@ func isMatch(s string, p string) bool {
 			return false
 		}
 	}
+
 	for len(p) != 0 {
 		if p[0] != '*' {
 			if len(p) >= 2 {
